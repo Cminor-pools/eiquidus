@@ -1,1 +1,191 @@
 
+  *** WELCOME TO CATCOIN EXPLORER UBUNTU 20+ SETUP ***
+
+  * Run each command line or section from top to bottom * 
+
+
+  [ Update The System ]
+
+    sudo apt update && sudo apt upgrade -y
+
+
+  [ Create User ]
+
+    sudo adduser explorer
+
+    sudo usermod -aG sudo explorer
+
+
+  [ "Now Reboot" Into Explorer Account Then Continue Setup ]
+
+    sudo reboot
+
+
+[ Wallet v0.9.3 Build & Config ]
+
+( Copy/paste this whole section without the dashes )
+-----------------------
+sudo apt -y install make libdb5.3++-dev zlib1g-dev build-essential && 
+wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0-dev_1.0.2n-1ubuntu5.13_amd64.deb && wget http://security.ubuntu.com/ubuntu/pool/main/b/boost1.65.1/boost1.65.1_1.65.1+dfsg.orig.tar.bz2 && wget http://security.ubuntu.com/ubuntu/pool/main/m/miniupnpc/libminiupnpc10_1.9.20140610-4ubuntu2_amd64.deb && wget http://security.ubuntu.com/ubuntu/pool/main/m/miniupnpc/libminiupnpc-dev_1.9.20140610-4ubuntu2_amd64.deb && 
+sudo apt remove libssl-dev && 
+sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb && sudo dpkg -i libssl1.0-dev_1.0.2n-1ubuntu5.13_amd64.deb && sudo dpkg -i libminiupnpc10_1.9.20140610-4ubuntu2_amd64.deb && sudo dpkg -i libminiupnpc-dev_1.9.20140610-4ubuntu2_amd64.deb && 
+tar xvf boost1.65.1_1.65.1+dfsg.orig.tar.bz2 && cd boost_1_65_1 && ./bootstrap.sh && sudo ./b2 install && sudo ldconfig && 
+cd ~ && git clone https://github.com/CatcoinOfficial/CatcoinRelease.git && cd CatcoinRelease/src && make -f makefile.unix 
+-------------------------------------------------------------------------------------------------------------------------
+
+  mkdir -p /home/$USER/.catcoin && touch /home/$USER/.catcoin/catcoin.conf
+
+  nano /home/$USER/.catcoin/catcoin.conf
+
+Insert whole section without the dashes:
+---------------
+rpcuser=exorrpc
+rpcpassword=sSTLyCkrD94Y8&9mr^m6W^Mk367Vr!!K
+rpcport=51573
+rpcallowip=127.0.0.1
+txindex=1
+upnp=1
+server=1
+listen=1
+daemon=1
+addnode=104.28.214.162
+addnode=104.28.246.162
+addnode=110.175.151.67
+addnode=146.19.215.49
+addnode=152.44.197.25
+addnode=161.129.176.90
+----------------------
+
+  Save & exit
+
+
+  [ Startup Catcoin Wallet ]
+
+    ./catcoind
+
+    ./catcoind getinfo
+
+
+  [ Database ]
+
+    sudo apt install mongodb -y
+
+    mongo
+
+    use explorerdb
+
+    db.createUser( { user: "eiquidus", pwd: "Nd^p2d77ceBX!L", roles: [ "readWrite" ] } )
+
+    exit
+
+
+  [ Node ]
+
+    cd ~ && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+( Insert & press enter, copy/paste this whole section without the dashes )
+---------------------------
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
+------------------------------------------------------------------
+
+  nvm install v20.15.1 
+
+
+  [ Crons ]
+
+    crontab -e
+
+    Select: 1 Save: ctrl+o Exit: ctrl+x
+
+( Insert on the end, copy/paste whole section without the dashes )
+---------------------------------------------------------------------------------------------------------------------------------
+*/1 * * * * cd /home/explorer/eiquidus && /home/explorer/.nvm/versions/node/v20.15.1/bin/node scripts/sync.js update >/dev/null 2>&1
+*/5 * * * * cd /home/explorer/eiquidus && /home/explorer/.nvm/versions/node/v20.15.1/bin/node scripts/sync.js peers >/dev/null 2>&1
+*/10 * * * * cd /home/explorer/eiquidus && /home/explorer/.nvm/versions/node/v20.15.1/bin/node scripts/sync.js market >/dev/null 2>&1
+----------------------------------------------------------------------------------------------------------------------------------
+
+    Save & close
+
+
+  [ Web Server ]
+  ( Optional: serverip or domain name )
+
+    sudo apt install apache2 memcached -y
+
+    sudo apt install php7.4 php7.4-bz2 php7.4-cli php7.4-common php7.4-curl php7.4-gd php7.4-imap php7.4-intl php7.4-json php7.4-ldap php7.4-mbstring php7.4-mysql php7.4-opcache php7.4-pspell php7.4-readline php7.4-soap php7.4-sqlite3 php7.4-tidy php7.4-xml php7.4-xmlrpc php7.4-xsl php7.4-zip php7.4-memcache php7.4-memcached libapache2-mod-php7.4 -y
+
+    sudo a2enmod rewrite proxy_http proxy_html proxy_connect proxy_balancer proxy_ajp proxy && sudo systemctl restart apache2 
+
+    sudo nano /etc/apache2/sites-available/serverip.conf
+
+(Insert whole sectiom without the dashes, replace with domain name or serverip with the actual ip of the server)
+------------------------------------
+DocumentRoot /home/explorer/eiquidus
+ServerName serverip
+<Directory "/home/explorer/eiquidus">
+allow from all
+Options Indexes FollowSymLinks
+AllowOverride None
+Require all granted
+</Directory>
+ProxyPreserveHost On
+ProxyPass / http://serverip:3001/
+ProxyPassReverse / http://serverip:3001/
+----------------------------------------
+
+  save & exit
+
+  sudo ln -s /etc/apache2/sites-available/serverip.conf /etc/apache2/sites-enabled/
+
+  sudo service apache2 reload
+
+
+  [ Explorer ]
+
+    cd ~ && git clone https://github.com/team-exor/eiquidus -b CatCoin
+
+
+  [ Explorer Start Up (Only If Wallet Is Full Sync) ]
+
+    cd CatcoinRelease/src
+
+    ./catcoind getinfo
+
+    screen -SL explorer
+
+    cd /home/explorer/eiquidus
+
+    npm install --only=prod
+
+    npm start
+
+  ( This screen session always runs, do not exit it )
+
+  ( Close screen session )
+    ctrl+a+d
+  ( Restore screen sesion )
+    screen -r explorer
+
+
+  [ Initial One Time Db Sync ]
+
+    screen -SL temp
+
+    cd /home/explorer/eiquidus
+
+    npm run sync-blocks
+
+    ( End this screen session after block sync completes )
+    screen -r temp
+    ctrl+c
+    type exit & press enter
+
+
+  [ Open The Site ]
+    http://serverip:3001
+    http://domain.name.com
+
+
+  *** Setup Complete ***
