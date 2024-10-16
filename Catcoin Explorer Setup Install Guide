@@ -2,7 +2,7 @@
   *** WELCOME TO CATCOIN EXPLORER UBUNTU 20+ SETUP ***
 
 
-  * Run each line or section from top to bottom * 
+  * Run each line or section from top to bottom, setup will fail if any steps are skipped *
 
 
   [ Update The System ]
@@ -168,20 +168,6 @@ ProxyPassReverse / http://serverip:3001/
     ctrl+a+d
   ( Restore screen sesion )
     screen -r explorer
-
-
-  [ Initial One Time Db Sync ]
-
-    screen -SL temp
-
-    cd /home/explorer/eiquidus
-
-    npm run sync-blocks
-
-    ( End this screen session after block sync completes )
-    screen -r temp
-    ctrl+c
-    type exit & press enter
 
 
   [ Open The Site ]
