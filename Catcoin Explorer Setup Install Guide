@@ -1,7 +1,8 @@
 
   *** WELCOME TO CATCOIN EXPLORER UBUNTU 20+ SETUP ***
 
-  * Run each command line or section from top to bottom * 
+
+  * Run each line or section from top to bottom * 
 
 
   [ Update The System ]
@@ -33,11 +34,11 @@ tar xvf boost1.65.1_1.65.1+dfsg.orig.tar.bz2 && cd boost_1_65_1 && ./bootstrap.s
 cd ~ && git clone https://github.com/CatcoinOfficial/CatcoinRelease.git && cd CatcoinRelease/src && make -f makefile.unix 
 -------------------------------------------------------------------------------------------------------------------------
 
-  mkdir -p /home/$USER/.catcoin && touch /home/$USER/.catcoin/catcoin.conf
+mkdir -p /home/$USER/.catcoin && touch /home/$USER/.catcoin/catcoin.conf
 
-  nano /home/$USER/.catcoin/catcoin.conf
+nano /home/$USER/.catcoin/catcoin.conf
 
-Insert whole section without the dashes:
+( Insert whole section without the dashes )
 ---------------
 rpcuser=exorrpc
 rpcpassword=sSTLyCkrD94Y8&9mr^m6W^Mk367Vr!!K
@@ -56,7 +57,7 @@ addnode=152.44.197.25
 addnode=161.129.176.90
 ----------------------
 
-  Save & exit
+Save & exit
 
 
   [ Startup Catcoin Wallet ]
@@ -64,6 +65,10 @@ addnode=161.129.176.90
     ./catcoind
 
     ./catcoind getinfo
+    ./catcoind getblockchaininfo ( Full sync is when blocks match headers height )
+
+
+[ Pause setup here! Only continue when wallet has full sync ]
 
 
   [ Database ]
@@ -76,7 +81,7 @@ addnode=161.129.176.90
 
     db.createUser( { user: "eiquidus", pwd: "Nd^p2d77ceBX!L", roles: [ "readWrite" ] } )
 
-    exit
+    Type "exit" press enter
 
 
   [ Node ]
@@ -139,7 +144,7 @@ ProxyPassReverse / http://serverip:3001/
 
   sudo ln -s /etc/apache2/sites-available/serverip.conf /etc/apache2/sites-enabled/
 
-  sudo service apache2 reload
+  sudo systemctl apache2 reload
 
 
   [ Explorer ]
@@ -147,11 +152,7 @@ ProxyPassReverse / http://serverip:3001/
     cd ~ && git clone https://github.com/team-exor/eiquidus -b CatCoin
 
 
-  [ Explorer Start Up (Only If Wallet Is Full Sync) ]
-
-    cd CatcoinRelease/src
-
-    ./catcoind getinfo
+  [ Explorer Start Up ( Only if Wallet is Full Sync ) ]
 
     screen -SL explorer
 
@@ -189,3 +190,4 @@ ProxyPassReverse / http://serverip:3001/
 
 
   *** Setup Complete ***
+
