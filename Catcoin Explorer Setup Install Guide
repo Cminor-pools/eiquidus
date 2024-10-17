@@ -149,7 +149,7 @@ ProxyPassReverse / http://serverip:3001/
 
   [ Explorer ]
 
-    cd ~ && git clone https://github.com/team-exor/eiquidus -b CatCoin
+    cd ~ && git clone https://github.com/Cminor-pools/eiquidus -b CatCoin
 
 
   [ Explorer Start Up ( Only if Wallet is Full Sync ) ]
