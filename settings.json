@@ -1231,7 +1231,7 @@
         "getbasicstats": {
           // enabled: Enable/disable the /ext/getbasicstats api endpoint (true/false)
           //          If set to false, the /ext/getbasicstats api will be completely disabled for public use (no definition on the api page and a disabled error msg if you try to call the endpoint directly)
-          "enabled": true
+          "enabled": false
         },
         // getsummary: a collection of settings that pertain to the /ext/getsummary api endpoint
         //             Returns a summary of coin data including: difficulty, hybrid difficulty, circulating supply, hash rate, default market price, network connection count, block count, count of online masternodes and count of offline masternodes (masternode counts are only applicable to masternode coins)
