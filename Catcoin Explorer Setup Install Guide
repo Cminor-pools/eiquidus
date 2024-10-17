@@ -17,9 +17,17 @@
     sudo usermod -aG sudo explorer
 
 
-  [ "Now Reboot" Into Explorer Account Then Continue Setup ]
+ [ Swap file ]
 
-    sudo reboot
+ ( Copy/paste this whole section without the dashes )
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+[ "Now Reboot" Into Explorer Account Then Continue Setup ]
+
+ sudo reboot
 
 
 [ Wallet v0.9.3 Build & Config ]
@@ -58,6 +66,7 @@ addnode=161.129.176.90
 ----------------------
 
 Save & exit
+Save: ctrl+o Exit: ctrl+x
 
 
   [ Startup Catcoin Wallet ]
@@ -65,7 +74,6 @@ Save & exit
     ./catcoind
 
     ./catcoind getinfo
-    ./catcoind getblockchaininfo ( Full sync is when blocks match headers height )
 
 
 [ Pause setup here! Only continue when wallet has full sync ]
