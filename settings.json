@@ -276,11 +276,11 @@
         "logo_panel": {
           // enabled: Enable/disable the logo panel (true/false)
           //          If set to false, the logo panel will be completely inaccessible
-          "enabled": true,
+          "enabled": false,
           // display_order: Determine which order this panel is shown from 1-5
           //                1 = far left panel, 5 = far right panel
           //                The panel will be disabled with a value of 0
-          "display_order": 3
+          "display_order": 0
         },
         // spacer_panel_1: a collection of settings that pertain to the 1st spacer panel which allows inserting a blank space into the top panels
         //                 NOTE: spacer panels are only visible on desktop and tablet screen sizes and are hidden on mobile screens
@@ -1357,7 +1357,7 @@
     //         HEAVY: retrieved from getsupply rpc cmd (The "blockchain_specific.heavycoin.enabled" setting must be set to true and the "blockchain_specific.heavycoin.api_cmds.getsupply" setting must be set up correctly for this option to work properly)
     //         BALANCES : get the supply by running a query on the addresses collection and summing up all positive balances (potentially a long running query for blockchains with tons of addresses)
     //         TXOUTSET : retrieved from gettxoutsetinfo rpc cmd
-    "supply": "GETINFO"
+    "supply": "COINBASE"
   },
 
   // captcha: a collection of settings that pertain to the captcha security used by different elements of the explorer
