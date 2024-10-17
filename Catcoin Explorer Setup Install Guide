@@ -33,12 +33,21 @@ sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapf
 [ Wallet v0.9.3 Build & Config ]
 
 ( Copy/paste this whole section without the dashes )
------------------------
+---------------------------------------------------------------------
 sudo apt -y install make libdb5.3++-dev zlib1g-dev build-essential && 
 wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0-dev_1.0.2n-1ubuntu5.13_amd64.deb && wget http://security.ubuntu.com/ubuntu/pool/main/b/boost1.65.1/boost1.65.1_1.65.1+dfsg.orig.tar.bz2 && wget http://security.ubuntu.com/ubuntu/pool/main/m/miniupnpc/libminiupnpc10_1.9.20140610-4ubuntu2_amd64.deb && wget http://security.ubuntu.com/ubuntu/pool/main/m/miniupnpc/libminiupnpc-dev_1.9.20140610-4ubuntu2_amd64.deb && 
 sudo apt remove libssl-dev && 
 sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb && sudo dpkg -i libssl1.0-dev_1.0.2n-1ubuntu5.13_amd64.deb && sudo dpkg -i libminiupnpc10_1.9.20140610-4ubuntu2_amd64.deb && sudo dpkg -i libminiupnpc-dev_1.9.20140610-4ubuntu2_amd64.deb && 
-tar xvf boost1.65.1_1.65.1+dfsg.orig.tar.bz2 && cd boost_1_65_1 && ./bootstrap.sh && sudo ./b2 install && sudo ldconfig && 
+tar xvf boost1.65.1_1.65.1+dfsg.orig.tar.bz2 && cd boost_1_65_1 && ./bootstrap.sh && sudo ./b2 install && sudo ldconfig 
+-----------------------------------------------------------------------------------------------------------------------
+
+ [ Ubuntu 22/24 Install gcc-10 ]
+
+  sudo apt install g++-10 -y
+
+  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 10 && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 10	
+
+-------------------------------------------------------------------------------------------------------------------------
 cd ~ && git clone https://github.com/CatcoinOfficial/CatcoinRelease.git && cd CatcoinRelease/src && make -f makefile.unix 
 -------------------------------------------------------------------------------------------------------------------------
 
@@ -76,7 +85,7 @@ Save: ctrl+o Exit: ctrl+x
     ./catcoind getinfo
 
 
-[ Pause setup here! Only continue when wallet has full sync ]
+[ Pause setup here! Only continue when wallet is full sync ]
 
 
   [ Database ]
