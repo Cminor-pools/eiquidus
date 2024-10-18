@@ -5,9 +5,12 @@
   * Run each line or section from top to bottom, setup will fail if any steps are skipped *
 
 
-  [ Update The System ]
+   [ Swap file ]
 
-    sudo apt update && sudo apt upgrade -y
+ ( Copy/paste this whole section without the dashes )
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
   [ Create User ]
@@ -16,18 +19,13 @@
 
     sudo usermod -aG sudo explorer
 
+    Type "exit" Press enter
 
- [ Swap file ]
-
- ( Copy/paste this whole section without the dashes )
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    ssh explorer@[server ip]
 
 
-[ "Now Reboot" Into Explorer Account Then Continue Setup ]
 
- sudo reboot
+  *** Setup Start ***
 
 
 [ Wallet v0.9.3 Build & Config ]
@@ -90,9 +88,17 @@ Save: ctrl+o Exit: ctrl+x
 
   [ Database ]
 
-    sudo apt install mongodb -y
+    sudo apt install gnupg curl 
 
-    mongo
+    curl -fsSL https://pgp.mongodb.com/server-7.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg –dearmor 
+
+    echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list 
+
+    sudo apt-get update && sudo apt-get install -y mongodb-org 
+
+    sudo systemctl start mongod && sudo systemctl enable mongod.service
+
+    mongosh
 
     use explorerdb
 
@@ -105,7 +111,7 @@ Save: ctrl+o Exit: ctrl+x
 
     cd ~ && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-( Insert & press enter, copy/paste this whole section without the dashes )
+( Insert & press enter. Copy/paste this whole section without the dashes )
 ---------------------------
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -121,7 +127,7 @@ export NVM_DIR="$HOME/.nvm"
 
     Select: 1 Save: ctrl+o Exit: ctrl+x
 
-( Insert on the end, copy/paste whole section without the dashes )
+( Insert on the end. Copy/paste whole section without the dashes )
 ---------------------------------------------------------------------------------------------------------------------------------
 */1 * * * * cd /home/explorer/eiquidus && /home/explorer/.nvm/versions/node/v20.15.1/bin/node scripts/sync.js update >/dev/null 2>&1
 */5 * * * * cd /home/explorer/eiquidus && /home/explorer/.nvm/versions/node/v20.15.1/bin/node scripts/sync.js peers >/dev/null 2>&1
@@ -132,20 +138,21 @@ export NVM_DIR="$HOME/.nvm"
 
 
   [ Web Server ]
-  ( Optional: serverip or domain name )
+  ( Optional: server ip or domain name )
 
     sudo apt install apache2 memcached -y
 
     sudo apt install php7.4 php7.4-bz2 php7.4-cli php7.4-common php7.4-curl php7.4-gd php7.4-imap php7.4-intl php7.4-json php7.4-ldap php7.4-mbstring php7.4-mysql php7.4-opcache php7.4-pspell php7.4-readline php7.4-soap php7.4-sqlite3 php7.4-tidy php7.4-xml php7.4-xmlrpc php7.4-xsl php7.4-zip php7.4-memcache php7.4-memcached libapache2-mod-php7.4 -y
 
-    sudo a2enmod rewrite proxy_http proxy_html proxy_connect proxy_balancer proxy_ajp proxy && sudo systemctl restart apache2 
+    sudo a2enmod rewrite proxy_http proxy_html proxy_connect proxy_balancer proxy_ajp proxy
 
-    sudo nano /etc/apache2/sites-available/serverip.conf
+    sudo nano /etc/apache2/sites-available/[insert server ip/domain name here].conf
 
-(Insert whole sectiom without the dashes, replace with domain name or serverip with the actual ip of the server)
+( Insert domain name or serverip {the actual ip of the server} Copy/paste whole section without the dashes )
 ------------------------------------
+<VirtualHost *:80>
 DocumentRoot /home/explorer/eiquidus
-ServerName serverip
+ServerName [insert server ip/domain name here]
 <Directory "/home/explorer/eiquidus">
 allow from all
 Options Indexes FollowSymLinks
@@ -153,15 +160,16 @@ AllowOverride None
 Require all granted
 </Directory>
 ProxyPreserveHost On
-ProxyPass / http://serverip:3001/
-ProxyPassReverse / http://serverip:3001/
+ProxyPass / http://[insert server ip/domain name here]:3001/
+ProxyPassReverse / http://[insert server ip/domain name here]:3001/
+</VirtualHost>
 ----------------------------------------
 
   save & exit
 
-  sudo ln -s /etc/apache2/sites-available/serverip.conf /etc/apache2/sites-enabled/
+  sudo ln -s /etc/apache2/sites-available/[insert server ip/domain name here].conf /etc/apache2/sites-enabled/
 
-  sudo systemctl apache2 reload
+  sudo systemctl reload apache2
 
 
   [ Explorer ]
