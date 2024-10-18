@@ -348,7 +348,7 @@
           // bgcolor: Change the background color of the network hashrate chart
           //          Set this to any valid html color
           //          Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
-          "bgcolor": "#ffffff",
+          "bgcolor": "#EFECD8",
           // line_color: Change the line color of the network hashrate chart
           //             Set this to any valid html color
           //             Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
@@ -373,7 +373,7 @@
           // bgcolor: Change the background color of the network difficulty chart
           //          Set this to any valid html color
           //          Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
-          "bgcolor": "#ffffff",
+          "bgcolor": "#EFECD8",
           // pow_line_color: Change the line color of the network difficulty chart for POW coins
           //                 Set this to any valid html color
           //                 Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
@@ -1136,7 +1136,7 @@
         "getvotelist": {
           // enabled: Enable/disable the /api/getvotelist api endpoint (true/false)
           //          If set to false, the /api/getvotelist api will be completely disabled for public use (no definition on the api page and a disabled error msg if you try to call the endpoint directly)
-          "enabled": true
+          "enabled": false
         },
         // getmasternodecount: a collection of settings that pertain to the /api/getmasternodecount api endpoint
         //                     Returns a json object containing the total number of masternodes on the network (only applicable to masternode coins)
@@ -1144,7 +1144,7 @@
         "getmasternodecount": {
           // enabled: Enable/disable the /api/getmasternodecount api endpoint (true/false)
           //          If set to false, the /api/getmasternodecount api will be completely disabled for public use (no definition on the api page and a disabled error msg if you try to call the endpoint directly)
-          "enabled": true
+          "enabled": false
         }
       },
       // ext: a collection of settings that pertain to the extended apis that are retrieved from local mongo database collection
