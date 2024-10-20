@@ -28,7 +28,7 @@
     // port: The port # that the wallet is configured to listen for RPC requests on (default: 51573 for Exor wallet)
     "port": 51573,
     // username: The wallet RPC username
-    "username": "exorrpc",
+    "username": "catrpc",
     // password: The wallet RPC password
     "password": "sSTLyCkrD94Y8&9mr^m6W^Mk367Vr!!K"
   },
@@ -65,7 +65,7 @@
       // enabled: Enable/disable CORS
       //          If set to true, a new output header will be added to all http requests like this: Access-Control-Allow-Origin: <corsorigin>
       //          If set to false, the cors feature will be completely disabled
-      "enabled": false,
+      "enabled": true,
       // corsorigin: Used to whitelist an http domain name for access to this explorer's resources
       //             The whitelisted domain must be in the format: https://example.com
       //             Specifying a "*" for the corsorigin will allow any domain to access the resources of this site
@@ -92,7 +92,7 @@
   },
 
   /* Shared page settings */
- 
+
   // shared_pages: a collection of settings that pertain to all webpages for the explorer
   "shared_pages": {
     // theme: Change the look & feel of the explorer with a unique theme. Uses bootswatch themes (https://bootswatch.com)
