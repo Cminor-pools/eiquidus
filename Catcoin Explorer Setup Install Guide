@@ -19,10 +19,9 @@ sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapf
 
     sudo usermod -aG sudo explorer
 
-    Type "exit" Press enter
+    Logout root: type "exit" press enter
 
-    ssh explorer@[server ip]
-
+    Login explorer: ssh explorer@server ip
 
 
   *** Setup Start ***
@@ -55,7 +54,7 @@ nano /home/$USER/.catcoin/catcoin.conf
 
 ( Insert whole section without the dashes )
 ---------------
-rpcuser=exorrpc
+rpcuser=catrpc
 rpcpassword=sSTLyCkrD94Y8&9mr^m6W^Mk367Vr!!K
 rpcport=51573
 rpcallowip=127.0.0.1
