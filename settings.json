@@ -348,7 +348,7 @@
           // bgcolor: Change the background color of the network hashrate chart
           //          Set this to any valid html color
           //          Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
-          "bgcolor": "#EFECD8",
+          "bgcolor": "#F6F2D8",
           // line_color: Change the line color of the network hashrate chart
           //             Set this to any valid html color
           //             Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
@@ -373,7 +373,7 @@
           // bgcolor: Change the background color of the network difficulty chart
           //          Set this to any valid html color
           //          Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
-          "bgcolor": "#EFECD8",
+          "bgcolor": "#F6F2D8",
           // pow_line_color: Change the line color of the network difficulty chart for POW coins
           //                 Set this to any valid html color
           //                 Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
@@ -958,12 +958,12 @@
       "nonkyc": {
         // enabled: Enable/disable the nonkyc exchange (true/false)
         //          If set to false, the nonkyc page will be completely inaccessible and no market data will be downloaded for this exchange
-        "enabled": false,
+        "enabled": true,
         // trading_pairs: An array of market trading pair symbols
         //                You can add as many trading pairs as necessary
         //                All entries must specify your coins symbol as it is displayed on the exchange, followed by a slash (/) and ending with the symbol of the market or asset that is being traded against
         //                Ex: "LTC/BTC", "LTC/USDT", "LTC/ETH"
-        "trading_pairs": [ "LTC/USDT" ]
+        "trading_pairs": [ "CAT/USDT" ]
       },
       // poloniex: a collection of settings that pertain to the poloniex exchange
       "poloniex": {
